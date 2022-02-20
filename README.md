@@ -64,12 +64,12 @@ Sample response body :
 }
 ```
 Details about the JSON structure
-name : Mandatory 
-userId : Manadatory + Unique
-email : Manadatory + Unique
-passworod : Mandatory
-userType : Optional, default value is CUSTOMER. Other possible value : ADMIN | ENGINEER
-userStatus : It reperesents the status of the user registered. Customer are by default approved. ADMIN and Engineers need approval from Admin. Possible values : APPROVED | PENDING | REJECTED
+- name : Mandatory 
+- userId : Manadatory + Unique
+- email : Manadatory + Unique
+- passworod : Mandatory
+- userType : Optional, default value is CUSTOMER. Other possible value : ADMIN | ENGINEER
+- userStatus : It reperesents the status of the user registered. Customer are by default approved. ADMIN and Engineers need approval from Admin. Possible values : APPROVED | PENDING | REJECTED
 
 ---
 #### 2. Login request
