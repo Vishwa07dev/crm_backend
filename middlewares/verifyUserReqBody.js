@@ -5,8 +5,8 @@ const User = require("../models/user.model");
 const constants = require("../utils/constants");
 
 
-validateSignupRequest = async (req, res, next) => {
-    
+validateUserRequestBody = async (req, res, next) => {
+
     //Validating the userName
     if (!req.body.name) {
         res.status(400).send({
@@ -71,11 +71,37 @@ const isValidEmail = (email) => {
         );
 };
 
-const verifySignUp = {
-    validateSignupRequest: validateSignupRequest
+
+validateUserStatusAndUserType = async (req, res, next) => {
+    //Validateing the user type
+    const userType = req.body.userType;
+    const userTypes = [constants.userTypes.customer, constants.userTypes.engineer, constants.userTypes.admin]
+    if (userType && !userTypes.includes(userType)) {
+        res.status(400).send({
+            message: "UserType provided is invalid. Possible values CUSTOMER | ENGINEER | ADMIN "
+        });
+        return;
+    }
+    //validting the userStatus
+    const userStatus = req.body.userStatus;
+    const userSatuses = [constants.userStatus.pending, constants.userStatus.approved, constants.userStatus.rejected]
+    if (userStatus && !userSatuses.includes(userStatus)) {
+        res.status(400).send({
+            message: "UserStatus provided is invalid. Possible values PENDING | APPROVED | REJECTED "
+        });
+        return;
+    }
+    next();
+
+
+}
+
+const verifyUserRequestBody = {
+    validateUserRequestBody: validateUserRequestBody,
+    validateUserStatusAndUserType: validateUserStatusAndUserType
 
 };
-module.exports = verifySignUp
+module.exports = verifyUserRequestBody
 
 
 

@@ -43,7 +43,7 @@ exports.signup = async (req, res) => {
         }
         res.status(201).send(postResponse);
     } catch (err) {
-        console.log("Some error while saving the user in db", err.message);
+        console.err("Some error while saving the user in db", err.message);
         res.status(500).send({
             message: "Some internal error while inserting the element"
         })
@@ -88,8 +88,9 @@ exports.signin = async (req, res)=> {
           message: "Invalid Password!"
         });
       }
+      console.log(user.userId)
       var token = jwt.sign({ id: user.userId }, config.secret, {
-        expiresIn: 86400 // 24 hours
+        expiresIn: 120 // 2 minutes
       });
 
       res.status(200).send({

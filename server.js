@@ -68,6 +68,7 @@ async function init() {
  * importing the routes
  */
 require('./routes/auth.routes')(app);
+require('./routes/user.routes')(app);
 
 app.listen(serverConfig.PORT, () => {
     console.log(`Application started on the port num : ${serverConfig.PORT}`);
