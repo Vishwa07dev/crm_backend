@@ -69,7 +69,12 @@ exports.createTicket = async (req, res) => {
  */
 exports.updateTicket = async (req, res) => {
     const ticket = await Ticket.findOne({ _id: req.params.id });
-    if (ticket.reporter == req.userId) {
+
+    const savedUser = await User.findOne({
+        userId: req.userId
+    });
+
+    if (ticket.reporter == req.userId || ticket.assignee == req.userId || savedUser.userType == constants.userTypes.admin) {
         //Allowed to update
         ticket.title = req.body.title != undefined ? req.body.title : ticket.title,
             ticket.description = req.body.description != undefined ? req.body.description : ticket.description,
@@ -92,14 +97,30 @@ exports.updateTicket = async (req, res) => {
  */
 exports.getAllTickets = async (req, res) => {
 
-    const queryObj = {
-        reporter: req.userId
-    }
+    /**
+     * First find the type of user
+     * 1. ADMIN should get the list of all the tickets in the descending order of creation date
+     * 2. Customer should be able to see only the tickets created by him/her
+     * 3. Engineer should be able to see all the tickets assigned to him or created by him
+     * 
+     */
+
+    const queryObj = {};
 
     if (req.query.status != undefined) {
         queryObj.status = req.query.status;
     }
+    const savedUser = await User.findOne({
+        userId: req.userId
+    });
 
+    if (savedUser.userType == constants.userTypes.admin) {
+        //Do nothing
+    } else if (savedUser.userType == constants.userTypes.engineer) {
+        queryObj.assignee = req.userId;
+    } else {
+        queryObj.reporter = req.userId;
+    }
 
     const tickets = await Ticket.find(queryObj);
     res.status(200).send(objectConvertor.ticketListResponse(tickets));
