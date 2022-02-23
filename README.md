@@ -1,4 +1,4 @@
-# CRM App backend [ Session 1 ]
+# CRM App backend [ Session 2 ]
 ## _Learning the development of RESTful APIs for backend_ 
 
 This code base contains logic/structure  for creating the Restful APIs for the CRM app
