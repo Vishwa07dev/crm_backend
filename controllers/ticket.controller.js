@@ -79,7 +79,8 @@ exports.updateTicket = async (req, res) => {
         ticket.title = req.body.title != undefined ? req.body.title : ticket.title,
             ticket.description = req.body.description != undefined ? req.body.description : ticket.description,
             ticket.ticketPriority = req.body.ticketPriority != undefined ? req.body.ticketPriority : ticket.ticketPriority,
-            ticket.status = req.body.status != undefined ? req.body.status : ticket.status
+            ticket.status = req.body.status != undefined ? req.body.status : ticket.status,
+            ticket.assignee = req.body.assignee !=undefined ? req.body.assignee : ticket.assignee
 
         var updatedTicket = await ticket.save();
         res.status(200).send(objectConvertor.ticketResponse(updatedTicket));
