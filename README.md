@@ -113,7 +113,7 @@ Sample response body :
     "updatedAt": "2022-02-23T05:11:04.841Z"
 }
 ```
-#### 3. API for the authenticated user to update the ticket/reassign the ticket assigned to him/her
+#### 3. API for the authenticated Engineer to update the ticket/reassign the ticket assigned to him/her
 ```sh
 PUT /crm/api/v1/tickets/6215c1e85e0d5a53afcd4e68
 
