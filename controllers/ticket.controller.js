@@ -6,6 +6,7 @@ const User = require("../models/user.model");
 const Ticket = require("../models/ticket.model");
 const constants = require("../utils/constants");
 const objectConvertor = require("../utils/objectConcverter");
+const sendEmail = require("../utils/NotificationClient");
 
 
 /**
@@ -46,6 +47,11 @@ exports.createTicket = async (req, res) => {
             engineer.ticketsAssigned.push(ticket._id);
             await engineer.save();
 
+            /**
+             * Sending the notification to the assigned Engineer in asynchronous manner
+             */
+            sendEmail(ticket._id,"Ticket with id: " +ticket._id +" created",ticket.description, user.email + "," + engineer.email,user.email);
+
 
             res.status(201).send(objectConvertor.ticketResponse(ticket));
         }
@@ -65,7 +71,7 @@ exports.createTicket = async (req, res) => {
 /**
  * Update the ticket 
  * 
- * Only the user who has created the ticket should be allowed to update the ticket
+ * 
  */
 exports.updateTicket = async (req, res) => {
     const ticket = await Ticket.findOne({ _id: req.params.id });
@@ -83,6 +89,19 @@ exports.updateTicket = async (req, res) => {
             ticket.assignee = req.body.assignee !=undefined ? req.body.assignee : ticket.assignee
 
         var updatedTicket = await ticket.save();
+
+        const engineer = await User.findOne({
+            userId: ticket.assignee
+        });
+
+        const reporter = await User.findOne({
+            userId: ticket.reporter
+        });
+        /**
+         * Sending the notification for ticket updation
+         */
+        sendEmail(ticket._id,"Ticket with id: " +ticket._id +" updated",ticket.description, savedUser.email + "," + engineer.email+ "," + reporter.email,savedUser.email);
+
         res.status(200).send(objectConvertor.ticketResponse(updatedTicket));
     } else {
         console.log("Ticket was being updated by someone who has not created the ticket");
