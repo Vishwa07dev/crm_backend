@@ -4,7 +4,7 @@
  * defined in the User Controller
  */
 const User = require("../models/user.model");
-const objectConvertor = require("../utils/objectConcverter");
+const objectConvertor = require("../utils/objectConverter");
 
 
 /**
@@ -23,10 +23,11 @@ exports.findAll = async (req, res) => {
                 userName: userNameReq
             });
         } catch (err) {
-            console.err("error while fetching the user for userName : ", userNameReq);
+            console.log("error while fetching the user for userName : ", userNameReq);
             res.status(500).send({
                 message: "Some internal error occured"
             })
+            return;
         }
     } else if (userTypeReq && userStatusReq) {
         try {
@@ -35,10 +36,11 @@ exports.findAll = async (req, res) => {
                 userStatus: userStatusReq
             });
         } catch (err) {
-            console.err(`error while fetching the user for userType [${userTypeReq}] and userStatus [${userStatusReq}]`);
+            console.log(`error while fetching the user for userType [${userTypeReq}] and userStatus [${userStatusReq}]`);
             res.status(500).send({
                 message: "Some internal error occured"
             })
+            return;
         }
     } else if (userTypeReq) {
 
@@ -47,10 +49,11 @@ exports.findAll = async (req, res) => {
                 userType: userTypeReq
             });
         } catch (err) {
-            console.err(`error while fetching the user for userType [${userTypeReq}] `);
+            console.log(`error while fetching the user for userType [${userTypeReq}] `);
             res.status(500).send({
                 message: "Some internal error occured"
             })
+            return;
         }
     } else if (userStatusReq) {
 
@@ -60,20 +63,22 @@ exports.findAll = async (req, res) => {
             });
 
         } catch (err) {
-            console.err(`error while fetching the user for userStatus [${userStatusReq}] `);
+            console.log(`error while fetching the user for userStatus [${userStatusReq}] `);
             res.status(500).send({
                 message: "Some internal error occured"
             })
+            return;
         }
     } else {
         try {
             users = await User.find();
 
         } catch (err) {
-            console.err(`error while fetching the users `);
+            console.log(`error while fetching the users `);
             res.status(500).send({
                 message: "Some internal error occured"
             })
+            return;
         }
     }
     res.status(200).send(objectConvertor.userResponse(users))
@@ -120,7 +125,7 @@ exports.update = async (req, res) => {
 
         });
     } catch (err) {
-        console.err("Error while updating the record", err.message);
+        console.log("Error while updating the record", err.message);
         res.status(500).send({
             message: "Some internal error occured"
         })

@@ -21,11 +21,11 @@ const ticketSchema = new mongoose.Schema({
         default: "OPEN"
     },
     reporter :{
-        type: String
+        type: Number
         
     },
     assignee :{
-        type: String
+        type: Number
         
     },
     createdAt: {
