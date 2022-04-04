@@ -12,7 +12,9 @@ exports.signup = async (req, res) => {
     /**
      * Inside the sign up call
      */
+     console.log("AAAAAA8")
     var userStatus = req.body.userSatus;
+    console.log(req.body.userSatus,!req.body.userSatus);
     if(!req.body.userSatus){
        if(!req.body.userType || req.body.userType==constants.userTypes.customer){
         userStatus = constants.userStatus.approved;
@@ -20,7 +22,7 @@ exports.signup = async (req, res) => {
         userStatus = constants.userStatus.pending;  
        }
     }
-
+    console.log("AAAAAA9")
     const userObj = {
         name: req.body.name,
         userId: req.body.userId,
@@ -29,6 +31,7 @@ exports.signup = async (req, res) => {
         password: bcrypt.hashSync(req.body.password, 8),
         userStatus: userStatus
     }
+    console.log("AAAAAA10")
 
     try {
         const userCreated = await User.create(userObj);

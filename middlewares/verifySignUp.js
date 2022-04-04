@@ -6,6 +6,7 @@ const constants = require("../utils/constants");
 
 
 validateSignupRequest = async (req, res, next) => {
+    console.log("AAAAAAAA")
     
     //Validating the userName
     if (!req.body.name) {
@@ -14,6 +15,8 @@ validateSignupRequest = async (req, res, next) => {
         });
         return;
     }
+    console.log("AAAAAAAA2")
+    
     if (!req.body.userId) {
 
         res.status(400).send({
@@ -21,6 +24,8 @@ validateSignupRequest = async (req, res, next) => {
         });
         return;
     }
+    console.log("AAAAAAAA3")
+    
     //Validating the userId 
     const user = await User.findOne({ userId: req.body.userId });
     if (user != null) {
@@ -30,6 +35,7 @@ validateSignupRequest = async (req, res, next) => {
         });
         return;
     }
+    console.log("AAAAAAAA4")
     //Validating the email Id
     if (!isValidEmail(req.body.email)) {
         res.status(400).send({
@@ -38,7 +44,7 @@ validateSignupRequest = async (req, res, next) => {
         return;
     }
 
-
+    console.log("AAAAAAAA5")
     const email = await User.findOne({ email: req.body.email });
     if (email != null) {
         res.status(400).send({
@@ -47,6 +53,7 @@ validateSignupRequest = async (req, res, next) => {
         return;
     }
 
+    console.log("AAAAAAAA6")
     //Validateing the user type
     const userType = req.body.userType;
     const userTypes = [constants.userTypes.customer, constants.userTypes.engineer, constants.userTypes.admin]
@@ -56,7 +63,7 @@ validateSignupRequest = async (req, res, next) => {
         });
         return;
     }
-
+    console.log("AAAAAAAA7")
     next();
 
 
