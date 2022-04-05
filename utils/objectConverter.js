@@ -7,7 +7,7 @@ exports.userResponse = (users) => {
             name: user.name,
             userId: user.userId,
             email: user.email,
-            userTypes: user.userType,
+            userType: user.userType,
             userStatus: user.userStatus
 
         });

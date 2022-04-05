@@ -1,5 +1,5 @@
 const User = require("../models/user.model");
-const { userTypes } = require("../utils/constants");
+const { userType } = require("../utils/constants");
 const constants = require("../utils/constants");
 var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
@@ -43,7 +43,7 @@ exports.signup = async (req, res) => {
         }
         res.status(201).send(postResponse);
     } catch (err) {
-        console.err("Some error while saving the user in db", err.message);
+        console.log("Some error while saving the user in db", err.message);
         res.status(500).send({
             message: "Some internal error while inserting the element"
         })
