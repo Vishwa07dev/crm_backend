@@ -81,7 +81,9 @@ const isValidEmail = (email) => {
 validateUserStatusAndUserType = async (req, res, next) => {
     //Validateing the user type
     const userType = req.body.userType;
+    console.log("userType",userType);
     const userTypes = [constants.userTypes.customer, constants.userTypes.engineer, constants.userTypes.admin]
+    console.log(userType && !userTypes.includes(userType),!userTypes.includes(userType));
     if (userType && !userTypes.includes(userType)) {
         res.status(400).send({
             message: "UserType provided is invalid. Possible values CUSTOMER | ENGINEER | ADMIN "

@@ -15,8 +15,6 @@ exports.findAll = async (req, res) => {
     let userTypeReq = req.query.userType;
     let userStatusReq = req.query.userStatus;
     let userNameReq = req.query.name;
-    console.log("2222222");
-    console.log(userNameReq);
     var users;
     if (userNameReq) {
         try {
@@ -77,7 +75,6 @@ exports.findAll = async (req, res) => {
             })
         }
     }
-    console.log(users);
     res.status(200).send(objectConvertor.userResponse(users))
 }
 
@@ -106,10 +103,10 @@ exports.findById = async (req, res) => {
  */
 
 exports.update = async (req, res) => {
-    console.log("%%%")
-    console.log(req);
+    console.log(req.body)
     const userIdReq = req.params.userId;
     try {
+
         const user = await User.findOneAndUpdate({
             userId: userIdReq
         }, {
@@ -119,9 +116,7 @@ exports.update = async (req, res) => {
 
         }).exec();
         res.status(200).send({
-
             message: `User record has been updated successfully`
-
         });
     } catch (err) {
         console.err("Error while updating the record", err.message);

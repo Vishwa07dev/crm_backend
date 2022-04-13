@@ -14,7 +14,6 @@ exports.signup = async (req, res) => {
      */
      console.log("AAAAAA8")
     var userStatus = req.body.userSatus;
-    console.log(req.body.userSatus,!req.body.userSatus);
     if(!req.body.userSatus){
        if(!req.body.userType || req.body.userType==constants.userTypes.customer){
         userStatus = constants.userStatus.approved;
@@ -64,7 +63,6 @@ exports.signin = async (req, res)=> {
     //Fetch the user based on the userId
     //Validating the userId 
     const user = await User.findOne({ userId: req.body.userId });
-    console.log(user);
     if (user == null) {
         res.status(400).send({
             message: "Failed! Userid doesn't exist!"
@@ -91,7 +89,6 @@ exports.signin = async (req, res)=> {
           message: "Invalid Password!"
         });
       }
-      console.log(user.userId)
       var token = jwt.sign({ id: user.userId }, config.secret, {
         expiresIn: 120 // 2 minutes
       });

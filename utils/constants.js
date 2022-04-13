@@ -11,5 +11,11 @@ module.exports = {
         pending: 'PENDING',
         approved: 'APPROVED',
         rejected: 'REJECTED'
-    }
+    },
+    ticketStatus:{
+        open : 'OPEN',
+        inProgress : "IN_PROGRESS",
+        blocked : 'BLOCKED',
+        closed : 'CLOSED'
+     }
 }

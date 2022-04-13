@@ -5,14 +5,15 @@ const constants = require("../utils/constants");
 
 
 verifyToken = (req, res, next) => {
-    console.log("AAAAAA-1")
+    console.log("AAAAAA-11")
+    console.log(req.body);
     let token = req.headers["x-access-token"];
     if (!token) {
         return res.status(403).send({
             message: "No token provided!"
         });
     }
-    console.log("AAAAAA-2")
+    console.log("AAAAAA-2",token)
     jwt.verify(token, config.secret, (err, decoded) => {
         if (err) {
             return res.status(401).send({
@@ -21,13 +22,13 @@ verifyToken = (req, res, next) => {
         }
         req.userId = decoded.id;
         console.log("AAAAAA-3")
-        console.log(req.userId)
         next();
     });
 };
 
 isAdmin = async (req, res, next) => {
     console.log("AAAAAA-4")
+    
     const user = await User.findOne({
         userId: req.userId
     })
