@@ -27,6 +27,9 @@ The whole repo is divided into multiple branches. Each branch contains code for 
 this app requires [Node.js](https://nodejs.org/) v14+ to run.
 
 Install the dependencies and devDependencies and start the server.
+Before running this application ensure that notifcation service is up and 
+running. More details on the steps of running that application can
+be found here : https://github.com/Vishwa07dev/NotificationService
 
 ```sh
 cd crm_backend

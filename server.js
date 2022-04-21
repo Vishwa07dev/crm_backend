@@ -29,19 +29,19 @@ app.use(bodyParser.urlencoded({extended :true}));
 /**
  * DB Connection initialization
  */
-
-
-mongoose.connect(dbConfig.DB_URL, () => {
-    console.log("connected to Mongo DB ")
-    init();
-}, err => {
-    console.log("Error :", err.mssage)
-}
-);
+mongoose.connect(dbConfig.DB_URL);
+ const db = mongoose.connection;
+ db.on("error", ()=>{
+      console.log("error while connecting to DB");
+  }) ;
+  db.once("open",()=>{
+     console.log("connected to Mongo DB ")
+     init();
+  })
 
 /**
  * 
- * @returns 
+ *  
  * This method is for the demonstration purpose,
  * ideally one ADMIN user should have been created in the backend
  */
