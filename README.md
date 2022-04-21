@@ -28,6 +28,10 @@ this app requires [Node.js](https://nodejs.org/) v14+ to run.
 
 Install the dependencies and devDependencies and start the server.
 
+Before starting the server please ensure 
+1. mongodb server is locally installed and running on the default port
+2. Ensure that notifcation service is up and running. More details on the steps of running that application can be found here : https://github.com/Vishwa07dev/NotificationService
+
 ```sh
 cd crm_backend
 npm install
