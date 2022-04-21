@@ -29,14 +29,15 @@ app.use(bodyParser.urlencoded({extended :true}));
  * DB Connection initialization
  */
 
-
-mongoose.connect(dbConfig.DB_URL, () => {
+mongoose.connect(dbConfig.DB_URL);
+const db = mongoose.connection;
+db.on("error", ()=>{
+     console.log("error while connecting to DB");
+ });
+ db.once("open",()=>{
     console.log("connected to Mongo DB ")
     init();
-}, err => {
-    console.log("Error :", err.mssage)
-}
-);
+ });
 
 /**
  * 

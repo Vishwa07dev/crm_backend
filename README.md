@@ -31,7 +31,7 @@ The whole repo is divided into multiple branches. Each branch contains code for 
 this app requires [Node.js](https://nodejs.org/) v14+ to run.
 
 Install the dependencies and devDependencies and start the server.
-
+Before starting the server please ensure mongodb server is locally installed and running on the default port
 ```sh
 cd crm_backend
 npm install
