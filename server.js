@@ -9,6 +9,33 @@ const express = require('express');
 const bcrypt = require("bcryptjs");
 const bodyParser = require("body-parser");
 const app = express();
+
+// const jwt = require('express-jwt');
+
+// const jwks = require('jwks-rsa');
+// const gaurds = require('express-jwt-permissions')();
+
+// const port = process.env.PORT || 8080;
+
+// const jwtCheck = jwt({
+//       secret: jwks.expressJwtSecret({
+//           cache: true,
+//           rateLimit: true,
+//           jwksRequestsPerMinute: 5,
+//           jwksUri: 'https://dev-36ccpipl.us.auth0.com/.well-known/jwks.json'
+//     }),
+//     audience: 'https://crm_authentication_api.com',
+//     issuer: 'https://dev-36ccpipl.us.auth0.com/',
+//     algorithms: ['RS256']
+// });
+// app.use(jwtCheck);
+// app.get('/authorized',gaurds.check(['authentication']), function (req, res) {
+//     res.json({challenge:'This is data xyz'});
+// });
+
+
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended :true}));
 

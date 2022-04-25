@@ -13,28 +13,22 @@ validateUserRequestBody = async (req, res, next) => {
             message: "Failed! Username is not provided !"
         });
         return;
-    }
-    console.log("AAAAAAAA2")
-    
+    }    
     if (!req.body.userId) {
 
         res.status(400).send({
             message: "Failed! UserId is not provided !"
         });
         return;
-    }
-    console.log("AAAAAAAA3")
-    
+    }    
     //Validating the userId 
     const user = await User.findOne({ userId: req.body.userId });
     if (user != null) {
-        console.log("Inside this");
         res.status(400).send({
             message: "Failed! Userid  already exists!"
         });
         return;
     }
-    console.log("AAAAAAAA4")
     //Validating the email Id
     if (!isValidEmail(req.body.email)) {
         res.status(400).send({
@@ -43,7 +37,6 @@ validateUserRequestBody = async (req, res, next) => {
         return;
     }
 
-    console.log("AAAAAAAA5")
     const email = await User.findOne({ email: req.body.email });
     if (email != null) {
         res.status(400).send({
@@ -51,8 +44,6 @@ validateUserRequestBody = async (req, res, next) => {
         });
         return;
     }
-
-    console.log("AAAAAAAA6")
     //Validateing the user type
     const userType = req.body.userType;
     const userTypes = [constants.userTypes.customer, constants.userTypes.engineer, constants.userTypes.admin]
@@ -62,7 +53,6 @@ validateUserRequestBody = async (req, res, next) => {
         });
         return;
     }
-    console.log("AAAAAAAA7")
     next();
 
 
@@ -81,9 +71,7 @@ const isValidEmail = (email) => {
 validateUserStatusAndUserType = async (req, res, next) => {
     //Validateing the user type
     const userType = req.body.userType;
-    console.log("userType",userType);
     const userTypes = [constants.userTypes.customer, constants.userTypes.engineer, constants.userTypes.admin]
-    console.log(userType && !userTypes.includes(userType),!userTypes.includes(userType));
     if (userType && !userTypes.includes(userType)) {
         res.status(400).send({
             message: "UserType provided is invalid. Possible values CUSTOMER | ENGINEER | ADMIN "

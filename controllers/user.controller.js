@@ -103,7 +103,6 @@ exports.findById = async (req, res) => {
  */
 
 exports.update = async (req, res) => {
-    console.log(req.body)
     const userIdReq = req.params.userId;
     try {
 
