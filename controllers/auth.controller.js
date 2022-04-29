@@ -56,6 +56,54 @@ exports.signup = async (req, res) => {
  * Controller for the sign in flow
  */
 
+/*
+request type:
+{
+  nickname: 'xyz122',
+  name: 'xyz122@gmail.com',
+  picture: 'https://s.gravatar.com/avatar/70e12f0367a7834a7358f81e0e262310?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fxy.png',
+  updated_at: '2022-04-25T19:52:26.375Z',
+  email: 'xyz122@gmail.com',
+  email_verified: false,
+  sub: 'auth0|6266edd18aeb52006fc0d153',
+  code: 'CtKbKLCQn18VXQMiyzvxhdvmf6C5nbI5zrkxJpAR9ksvX'
+}
+*/
+exports.oauthsignin = async (req, res)=> {
+    let user = await User.findOne({ userId: req.body.nickname });
+    if (user == null){
+        const userObj = {
+            name: req.body.nickname,
+            userId: req.body.nickname,
+            email: req.body.email,
+            userType: constants.userTypes.customer,
+            password: bcrypt.hashSync("Hello@123", 8), //Default password
+            userStatus:constants.userStatus.approved
+        }
+        try {
+            const userCreated = await User.create(userObj);
+            user = await User.findOne({ userId: req.body.nickname });
+        } catch (err) {
+            res.status(500).send({
+                message: "Some internal error while inserting the element"
+            })
+        }
+
+    }
+    //Exchange Access code for access token and validate
+    var token = jwt.sign({ id: user.userId }, config.secret, {
+        expiresIn: 120 // 2 minutes
+      });
+    res.status(200).send({
+        name : user.name,
+        userId : user.userId,
+        email: user.email,
+        userTypes : user.userType,
+        userStatus : user.userStatus,
+        accessToken : token
+      })
+
+}
 exports.signin = async (req, res)=> {
 
     //Fetch the user based on the userId
