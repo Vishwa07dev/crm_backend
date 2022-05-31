@@ -15,7 +15,6 @@ This code base contains logic/structure  for creating the Restful APIs for the C
 
 
   
-More details around this can be found [here](https://docs.google.com/document/d/1x866VrSsjchFf7dhD7U2zYLbzj-tt34STWuDMMyL6Uc/edit?usp=sharing) 
 
 ## How is the code organized in this repo ?
 The whole repo is divided into multiple branches. Each branch contains code for a specific concept. For example _session1_ has the code base for user registration and login . Each branch is built on the top of the previous branch
@@ -266,7 +265,6 @@ Response :
 
 ```
 ###
-POSTMAN collection [link](https://www.getpostman.com/collections/9168e824f523fb659502)
 
 ## Development
 
