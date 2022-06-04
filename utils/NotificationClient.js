@@ -1,5 +1,5 @@
 var Client = require('node-rest-client').Client;
-
+const serverConfig = require('../configs/server.config');
 var client = new Client();
 
 
@@ -18,9 +18,9 @@ module.exports = (ticketId, subject, content, emailIds, requester) => {
     /**
      * We can keep this hardcoded URL in the configs files
      */
-    client.post("http://localhost:7777/notifiServ/api/v1/notifications", args, function (data, response) {
-        console.log("Request sent");
-        console.log(data);
+    client.post(`http://${serverConfig.NOTIFICATTION_IP}:${serverConfig.NOTIFICATTION_PORT}/notifiServ/api/v1/notifications`, args, function (data, response) {
+    }).on('error', function (err) {
+        console.log(err);
     });
 
 

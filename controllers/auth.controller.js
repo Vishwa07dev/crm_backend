@@ -109,7 +109,6 @@ exports.signin = async (req, res)=> {
     //Fetch the user based on the userId
     //Validating the userId 
     const user = await User.findOne({ userId: req.body.userId });
-    console.log(user);
     if (user == null) {
         res.status(400).send({
             message: "Failed! Userid doesn't exist!"
@@ -136,7 +135,6 @@ exports.signin = async (req, res)=> {
           message: "Invalid Password!"
         });
       }
-      console.log(user.userId)
       var token = jwt.sign({ id: user.userId }, config.secret, {
         expiresIn: 120 // 2 minutes
       });

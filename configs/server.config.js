@@ -3,5 +3,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = {
-    PORT: process.env.PORT
+    PORT: process.env.PORT,
+    NOTIFICATTION_PORT: process.env.PORT,
+    NOTIFICATTION_IP: process.env.NOTIFICATTION_IP
+    
 }
